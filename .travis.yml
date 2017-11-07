@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+  - 2.4
+cache: bundler
+script: bundle exec bin/rails test
+env:
+  - DISABLE_SPRING=1
