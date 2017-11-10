@@ -15,8 +15,8 @@ open_day_variants << Date::DAYNAMES - %w(Monday Tuesday)
 users_before_count = User.count
 trucks_before_count = FoodTruck.count
 
-User.first_or_create(login: "hungry_harry")
-User.first_or_create(login: "ravenous_rachel")
+User.where(login: "hungry_harry").first_or_create
+User.where(login: "ravenous_rachel").first_or_create
 
 trucks.each do |truck_data|
   next if FoodTruck.exists?(name: truck_data["name"])
