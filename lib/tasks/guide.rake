@@ -141,6 +141,8 @@ namespace :guide do
         Once ratings can be created, modify the `GET /trucks/1` endpoint to
         return a truck's average rating, rounded to the nearest half (e.g. an
         average rating of 4.3 rounds to 4.5).
+
+        Hint: `rake test` will run the tests.
       EOS
     end
 
@@ -200,8 +202,7 @@ namespace :guide do
       EOS
 
       para <<-EOS
-        Using the geokit gem and Google maps API, already configured in the
-        app, add the ability to:
+        Using the geokit gem and configured geocoders, add the ability to:
       EOS
 
       puts <<-EOS
