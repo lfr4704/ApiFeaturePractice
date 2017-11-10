@@ -5,3 +5,5 @@ cache: bundler
 script: bundle exec bin/rails test
 env:
   - DISABLE_SPRING=1
+services:
+  - mysql
