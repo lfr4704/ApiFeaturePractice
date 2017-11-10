@@ -2,13 +2,13 @@ language: ruby
 rvm:
   - 2.4
 cache: bundler
-script: bundle exec rake test
+script: bundle exec bin/rake test
 env:
   - DISABLE_SPRING=1
 
 before_install:
   - cp config/database.travis.yml config/database.yml
-  - bundle exec rake db:create
+  - bundle exec bin/rake db:create
 
 services:
   - mysql
