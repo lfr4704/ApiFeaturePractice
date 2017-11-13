@@ -2,9 +2,11 @@
   <h4>
     <%= food_truck.name %>
     <%- if food_truck.tags.any? %>
-      <% food_truck.tags.each do |tag| %>
-        <%= link_to tag.name, tag, class: "label Label--outline" %>
-      <% end %>
+      <span class="labels">
+        <% food_truck.tags.each do |tag| %>
+          <%= link_to tag.name, tag, class: "label Label--outline" %>
+        <% end %>
+      </span>
     <%- end %>
   </h4>
   <%= simple_format food_truck.description %>
