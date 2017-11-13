@@ -1,0 +1,17 @@
+<div class="page-section pt-0">
+  <h4>
+    <%= food_truck.name %>
+    <%- if food_truck.tags.any? %>
+      <% food_truck.tags.each do |tag| %>
+        <%= link_to tag.name, tag, class: "label Label--outline" %>
+      <% end %>
+    <%- end %>
+  </h4>
+  <%= simple_format food_truck.description %>
+  <%- if food_truck.website.present? %>
+    <p class="text-small">
+      <strong>Website:</strong>
+      <%= link_to food_truck.website %>
+    </p>
+  <%- end %>
+</div>

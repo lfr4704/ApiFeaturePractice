@@ -6,4 +6,8 @@ Rails.application.routes.draw do
       resources :ratings, only: [:create]
     end
   end
+
+  resources :tags, only: [:show]
+
+  root "trucks#index"
 end
