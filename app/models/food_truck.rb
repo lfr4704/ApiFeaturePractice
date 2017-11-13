@@ -4,6 +4,8 @@ class FoodTruck < ApplicationRecord
 
   validates :name, presence: true
 
+  scope :tagged_with, -> (tag) { joins(:tags).where(tags: { id: tag.id }) }
+
   def to_h
     {
       id: id,

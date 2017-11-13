@@ -9,6 +9,26 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <h2 class="mt-5">
+        GitGrub
+      </h2>
+      <p class="alt-h4">
+        Social Eating
+      </p>
+      <hr/>
+      <div class="columns mt-5">
+        <div class="one-third column">
+          <nav class="menu">
+            <%= nav_link_to "Food Truck Directory", "/", match: "trucks" %>
+            <%= nav_link_to "Browse by Tag", "/tags", match: "tags" %>
+            <%= nav_link_to "Browse by Location", "/map", match: "map" %>
+          </nav>
+        </div>
+        <div class="two-thirds column">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
