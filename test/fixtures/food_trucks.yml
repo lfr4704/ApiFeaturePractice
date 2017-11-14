@@ -16,6 +16,9 @@ pizza:
   open_thursday: true
   open_friday: true
   open_saturday: true
+  # last_known_address: 855 Bush St, San Francisco, CA 94108
+  # last_known_lat: 37.789630
+  # last_known_lng: -122.411340
 
 open_7_days:
   name: The chairman
@@ -35,6 +38,9 @@ open_7_days:
   open_thursday: true
   open_friday: true
   open_saturday: true
+  # last_known_address: 670 Larkin St, San Francisco, CA 94109
+  # last_known_lat: 37.784069
+  # last_known_lng: -122.417594
 
 open_weekdays:
   name: hella vegan eats
@@ -52,3 +58,6 @@ open_weekdays:
   open_thursday: true
   open_friday: true
   open_saturday: false
+  # last_known_address: 411 26th St, Oakland, CA 94612
+  # last_known_lat: 37.814968
+  # last_known_lng: -122.266672
