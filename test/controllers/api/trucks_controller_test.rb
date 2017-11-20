@@ -6,7 +6,7 @@ class Api::TrucksControllerTest < ActionDispatch::IntegrationTest
     get api_trucks_url
 
     assert_response 200
-    assert_same_elements response, FoodTruck.all.map(&:to_h)
+    assert_same_elements FoodTruck.all.map(&:to_h), response
   end
 
   test "GET /api/trucks/1 works" do
