@@ -4,7 +4,7 @@ test "PATCH /api/trucks/1 updates the most recent known location" do
   patch api_truck_url(truck), params: { truck: { location: [lat, lng] } }
 
   assert_response 200
-  assert_equal response.fetch(:location), [lat, lng]
+  assert_equal [lat, lng], response.fetch(:location)
 end
 
 test "GET /api/trucks/1 returns the most recent known location" do
@@ -14,7 +14,7 @@ test "GET /api/trucks/1 returns the most recent known location" do
 
   get api_truck_url(truck)
   assert_response 200
-  assert_equal response.fetch(:location), [lat, lng]
+  assert_equal [lat, lng], response.fetch(:location)
 end
 
 test "GET /api/trucks with `near` returns the distance in the response" do
