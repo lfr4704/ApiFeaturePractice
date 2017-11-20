@@ -12,7 +12,7 @@ class FoodTruck < ApplicationRecord
       created_at: created_at.to_formatted_s(:iso8601),
       updated_at: created_at.to_formatted_s(:iso8601),
       name: name.force_encoding("utf-8"),
-      description: description.force_encoding("utf-8"),
+      description: description&.force_encoding("utf-8"),
       hours: hours,
       tags: tags.pluck(:name)
     }
