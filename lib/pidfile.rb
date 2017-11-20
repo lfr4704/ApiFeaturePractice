@@ -27,6 +27,10 @@ module ExercisePidFileManager
     File.join("./", pid_file_name(task_name))
   end
 
+  def completed_pid_file(task_name)
+    File.join("./complete/", pid_file_name(task_name))
+  end
+
   def require_started(task_name)
     unless started?(task_name)
       raise ExerciseNotStartedError.new("Hmm, it looks like you haven't started #{human_name task_name}.")
@@ -55,7 +59,9 @@ module ExercisePidFileManager
   def finish(task_name)
     require_started(task_name) do
       pid_file = pid_file(task_name)
-      File.delete(pid_file) if File.exists?(pid_file)
+      completed_pid_file = completed_pid_file(task_name)
+
+      FileUtils.mv(pid_file, completed_pid_file) if File.exists?(pid_file)
     end
   end
 end
