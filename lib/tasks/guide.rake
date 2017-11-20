@@ -202,7 +202,7 @@ namespace :guide do
       EOS
 
       para <<-EOS
-        Using the geokit gem and configured geocoders, add the ability to:
+        Using the haversine gem, add the ability to:
       EOS
 
       puts <<-EOS
