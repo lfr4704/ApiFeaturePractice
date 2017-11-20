@@ -36,7 +36,7 @@ class Api::RatingsControllerTest < ActionDispatch::IntegrationTest
     post api_truck_ratings_url(truck),
       params: { rating: 2 }
 
-    assert_equal 401, response.code
+    assert_equal 401, response.status
   end
 
 end
