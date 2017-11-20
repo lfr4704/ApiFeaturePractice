@@ -23,17 +23,19 @@ test "GET /api/trucks omits closed trucks with open=true" do
 end
 
 test "GET /api/trucks filtering by minimum rating includes trucks above the minimum" do
-  FoodTruck.any_instance.stubs(:rating).returns(4.0)
+  truck = food_trucks(:pizza)
+  # TODO give pizza a 3-star rating
 
   get api_trucks_url, params: { min_rating: 3 }
-  assert_equal FoodTruck.count, response.size
+  assert_includes response.map { |e| e[:id] }, truck.id
 end
 
 test "GET /api/trucks filtering by minimum rating excludes trucks below the minimum" do
-  FoodTruck.any_instance.stubs(:rating).returns(2.0)
+  truck = food_trucks(:pizza)
+  # TODO give pizza a 3-star rating
 
-  get api_trucks_url, params: { min_rating: 3 }
-  assert_equal 0, response.size
+  get api_trucks_url, params: { min_rating: 4 }
+  refute_includes response.map { |e| e[:id] }, truck.id
 end
 
 test "GET /api/trucks filters by tag" do

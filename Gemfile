@@ -31,7 +31,6 @@ end
 group :test do
   gem 'shoulda-context', '>= 1.2.2'
   gem 'minitest-focus'
-  gem 'mocha'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
