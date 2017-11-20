@@ -13,7 +13,7 @@
 !/log/.keep
 !/tmp/.keep
 
-*.pid
+/*.pid
 /public/packs
 /public/packs-test
 /node_modules
