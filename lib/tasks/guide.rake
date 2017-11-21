@@ -14,15 +14,7 @@ desc "Commit your work and move on to the next exercise."
 task :next => ["check", "guide:next"]
 
 desc "Mark your work on the entire coding exercise as complete. Everything but the push."
-task :finish => ["guide:current", "guide:finish_all"] do
-  para <<-EOS
-    Looks like your work here is done. Congratulations! Please push your branch
-    up to the remote repository and open a Pull Request. Be sure to write the
-    PR in the manner you'd write a PR as an engineer at GitHub.
-
-    Thank you for your time. Have a nice day!
-  EOS
-end
+task :finish => ["guide:current", "guide:finish_all", "guide:thanks_and_goodbye"]
 
 desc "Checks the status of the exercise"
 task :check => ["guide:current", "db:test:prepare"] do
@@ -90,6 +82,16 @@ namespace :guide do
     end
 
     puts "bin/rake help:\t" + Rake::Task[:help].full_comment
+  end
+
+  task :thanks_and_goodbye do
+    para <<-EOS
+      Looks like your work here is done. Congratulations! Please push your branch
+      up to the remote repository and open a Pull Request. Be sure to write the
+      PR in the manner you'd write a PR as an engineer at GitHub.
+
+      Thank you for your time. Have a nice day!
+    EOS
   end
 
   task :current do
@@ -319,7 +321,7 @@ namespace :guide do
     task :finish => [:check] do
       if ENV["SKIP_COMMIT"] == "true"
         finish(:exercise3)
-        # TODO - output something exciting
+        Rake::Task["guide:thanks_and_goodbye"].invoke
       elsif ask("Ready to commit your work?")
         sh "git add ."
         sh "git commit -a --allow-empty -m 'Marking Exercise 3 Complete'" do |ok, response|
