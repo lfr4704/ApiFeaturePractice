@@ -76,12 +76,12 @@ namespace :guide do
     end
 
     if current_exercise
-      puts "bin/rake check:\t" + Rake::Task[:check].comment
-      puts "bin/rake next:\t" + Rake::Task[:next].comment
-      puts "bin/rake finish:\t" + Rake::Task[:finish].comment
+      puts "bin/rake check:".ljust(20) + Rake::Task[:check].comment
+      puts "bin/rake next:".ljust(20) + Rake::Task[:next].comment
+      puts "bin/rake finish:".ljust(20) + Rake::Task[:finish].comment
     end
 
-    puts "bin/rake help:\t" + Rake::Task[:help].full_comment
+    puts "bin/rake help:".ljust(20) + Rake::Task[:help].full_comment
   end
 
   task :thanks_and_goodbye do
