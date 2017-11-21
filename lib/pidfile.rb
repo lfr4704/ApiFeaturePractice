@@ -9,9 +9,24 @@ module ExercisePidFileManager
     File.exists?(pid_file(task_name))
   end
 
+  def completed?(task_name)
+    File.exists?("complete/#{pid_file(task_name)}")
+  end
+
   def current_exercise
     ALL_EXERCISES.find do |name|
       started?(name)
+    end
+  end
+
+  def exercise_after(ex)
+    cursor = ALL_EXERCISES.index(ex)
+    ALL_EXERCISES.fetch(cursor + 1) if cursor
+  end
+
+  def completed_exercises
+    ALL_EXERCISES.select do |name|
+      completed?(name)
     end
   end
 
