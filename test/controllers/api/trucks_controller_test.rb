@@ -14,7 +14,7 @@ class Api::TrucksControllerTest < ActionDispatch::IntegrationTest
     get api_truck_url(truck)
 
     assert_response 200
-    assert_equal response, truck.to_h
+    assert_equal truck.to_h, response
   end
 
   test "A truck has a NULL rating without rating" do
