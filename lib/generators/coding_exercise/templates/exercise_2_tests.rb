@@ -22,10 +22,9 @@ test "GET /api/trucks with `near` returns the distance in the response" do
   lat, lng = [37.782267, -122.391248]
   truck.set_location(latitude: lat, longitude: lng)
 
-  get api_trucks_url,
-    params: { near: [lat, lng] }
+  get api_truck_url(truck), params: { near: [90, 0] }
   assert_response 200
-  assert_predicate response.first[:distance], :present?
+  assert response[:distance] > 0
 end
 
 test "Omitting the near lat/lng omits the distance from the response" do
@@ -33,8 +32,7 @@ test "Omitting the near lat/lng omits the distance from the response" do
   lat, lng = [37.782267, -122.391248]
   truck.set_location(latitude: lat, longitude: lng)
 
-  get api_trucks_url
+  get api_truck_url(truck)
   assert_response 200
-  refute response.first.key?(:distance),
-    "distance should be omitted when `near` isn't provided"
+  refute response.key?(:distance), "distance should be omitted when `near` isn't provided"
 end
