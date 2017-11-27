@@ -139,10 +139,12 @@ namespace :guide do
   end
 
   task :finish_all do
-    if current_exercise && ask("Would you like to mark #{human_name(current_exercise)} complete?")
-      Rake::Task["guide:#{current_exercise}:finish"].invoke
-    else
-      para "Okay. #{human_name(current_exercise)} will not be scored."
+    if current_exercise
+      if ask("Would you like to mark #{human_name(current_exercise)} complete?")
+        Rake::Task["guide:#{current_exercise}:finish"].invoke
+      else
+        para "Okay. #{human_name(current_exercise)} will not be scored."
+      end
     end
 
     completed = completed_exercises.map { |ex| human_name(ex) }
