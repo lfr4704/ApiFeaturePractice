@@ -20,7 +20,9 @@ module ExercisePidFileManager
   end
 
   def exercise_after(ex)
-    cursor = ALL_EXERCISES.index(ex)
+    has_followup = ALL_EXERCISES.take(ALL_EXERCISES.length - 1)
+
+    cursor = has_followup.index(ex)
     ALL_EXERCISES.fetch(cursor + 1) if cursor
   end
 
