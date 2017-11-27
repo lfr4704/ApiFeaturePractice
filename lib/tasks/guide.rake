@@ -7,11 +7,14 @@ Rake::TaskManager.record_task_metadata = true
 desc "Start the exercises!"
 task :start => ["guide:welcome", "guide:exercise1:start"]
 
-desc "Print the current exercise's instructions"
+desc "Print the current exercise's instructions."
 task :help => ["guide:current", "guide:current_instructions", "guide:generic_help"]
 
-desc "Commit your work and move on to the next exercise"
+desc "Commit your work and move on to the next exercise."
 task :next => ["check", "guide:next"]
+
+desc "Mark your work on the entire coding exercise as complete. Everything but the push."
+task :finish => ["guide:current", "guide:finish_all", "guide:thanks_and_goodbye"]
 
 desc "Checks the status of the exercise"
 task :check => ["guide:current", "db:test:prepare"] do
@@ -19,15 +22,14 @@ task :check => ["guide:current", "db:test:prepare"] do
     unless ok || ENV["FORCE"] == "true"
       sep
       para <<-EOS
-        Looks like there's still at least one failing test. Once all tests
-        are passing, you can move on to the next exercise.
+        Looks like there's still at least one failing test. Once all tests are
+        passing, you can move on to the next exercise or mark this one complete.
       EOS
       exit response.exitstatus
     end
   end
 
   sep
-  puts "\nYou're good to go! Run `rake next` to move to the next exercise."
 end
 
 namespace :guide do
@@ -44,6 +46,13 @@ namespace :guide do
      ╚═════╝ ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═════╝
 
     EOS
+
+    current_branch = `git rev-parse --abbrev-ref HEAD`
+
+    if current_branch == "master"
+      branchname = "github-interview-#{Date.today.strftime("%Y%m%d")}"
+      sh "git checkout --track #{branchname}"
+    end
 
     para <<-EOS
       Today you'll be working on the REST API for a food truck tracking
@@ -74,22 +83,52 @@ namespace :guide do
     end
 
     if current_exercise
-      puts "bin/rake check:\t" + Rake::Task[:check].comment
-      puts "bin/rake next:\t" + Rake::Task[:next].comment
+      puts "bin/rake check:".ljust(20) + Rake::Task[:check].comment
+      puts "bin/rake next:".ljust(20) + Rake::Task[:next].comment
+      puts "bin/rake finish:".ljust(20) + Rake::Task[:finish].comment
     end
 
-    puts "bin/rake help:\t" + Rake::Task[:help].full_comment
+    puts "bin/rake help:".ljust(20) + Rake::Task[:help].full_comment
+  end
+
+  task :thanks_and_goodbye do
+    puts <<-EOS
+
+    ██╗  ██╗ ██████╗  ██████╗ ██████╗  █████╗ ██╗   ██╗██╗
+    ██║  ██║██╔═══██╗██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██║
+    ███████║██║   ██║██║   ██║██████╔╝███████║ ╚████╔╝ ██║
+    ██╔══██║██║   ██║██║   ██║██╔══██╗██╔══██║  ╚██╔╝  ╚═╝
+    ██║  ██║╚██████╔╝╚██████╔╝██║  ██║██║  ██║   ██║   ██╗
+    ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝
+
+    EOS
+
+    para <<-EOS
+      It looks like your work here is done. Please push your branch up to the
+      remote repository and open a Pull Request. Be sure to write the PR in the
+      manner you'd write a PR as an engineer at GitHub.
+
+      Thank you for your time. Have a nice day!
+    EOS
   end
 
   task :current do
     if current = current_exercise
       puts "Currently working on #{human_name(current)}."
-    else
+    elsif completed_exercises.blank?
       if ask("It looks like you haven't started the exercise yet. Would you like to begin?")
         Rake::Task[:start].invoke
         exit 0
       end
       exit 1
+    else # all exercises have been marked complete
+      para <<-EOS
+        It looks like you're done with the exercises! Have you pushed your
+        branch to the remote repository yet? Once you've done that, all
+        that remains is to open a Pull Request with your changes.
+      EOS
+      sep
+      bye
     end
   end
 
@@ -99,9 +138,29 @@ namespace :guide do
     end
   end
 
+  task :finish_all do
+    if current_exercise
+      if ask("Would you like to mark #{human_name(current_exercise)} complete?")
+        Rake::Task["guide:#{current_exercise}:finish"].invoke
+      else
+        para "Okay. #{human_name(current_exercise)} will not be scored."
+      end
+    end
+
+    completed = completed_exercises.map { |ex| human_name(ex) }
+
+    if completed.present?
+      puts "Finished exercises: #{completed.join(", ")}."
+    else
+      para "It looks like you haven't finished any of the exercises yet."
+      exit 1
+    end
+  end
+
   task :next do
     if current = current_exercise
       Rake::Task["guide:#{current}:finish"].invoke
+      Rake::Task["guide:#{exercise_after(current)}:start"].invoke
     end
   end
 
@@ -158,18 +217,17 @@ namespace :guide do
     task :finish => [:check] do
       if ENV["SKIP_COMMIT"] == "true"
         finish(:exercise1)
-        Rake::Task["guide:exercise2:start"].invoke
       elsif ask("Ready to commit your work?")
         sh "git add ."
         sh "git commit -a --allow-empty -m 'Marking Exercise 1 Complete'" do |ok, response|
           if ok
             finish(:exercise1)
-            Rake::Task["guide:exercise2:start"].invoke
           else
             para <<-EOS
               Something went wrong with that commit. Please commit your work
               and try again.
             EOS
+            exit 1
           end
         end
       end
@@ -228,18 +286,17 @@ namespace :guide do
     task :finish => [:check] do
       if ENV["SKIP_COMMIT"] == "true"
         finish(:exercise2)
-        Rake::Task["guide:exercise3:start"].invoke
       elsif ask("Ready to commit your work?")
         sh "git add ."
         sh "git commit -a --allow-empty -m 'Marking Exercise 2 Complete'" do |ok, response|
           if ok
             finish(:exercise2)
-            Rake::Task["guide:exercise3:start"].invoke
           else
             para <<-EOS
               Something went wrong with that commit. Please commit your work
               and try again.
             EOS
+            exit 1
           end
         end
       end
@@ -286,7 +343,7 @@ namespace :guide do
     task :finish => [:check] do
       if ENV["SKIP_COMMIT"] == "true"
         finish(:exercise3)
-        # TODO - output something exciting
+        Rake::Task["guide:thanks_and_goodbye"].invoke
       elsif ask("Ready to commit your work?")
         sh "git add ."
         sh "git commit -a --allow-empty -m 'Marking Exercise 3 Complete'" do |ok, response|
@@ -297,6 +354,7 @@ namespace :guide do
               Something went wrong with that commit. Please commit your work
               and try again.
             EOS
+            exit 1
           end
         end
       end
