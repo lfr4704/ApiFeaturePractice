@@ -85,6 +85,17 @@ namespace :guide do
   end
 
   task :thanks_and_goodbye do
+    puts <<-EOS
+
+    ██╗  ██╗ ██████╗  ██████╗ ██████╗  █████╗ ██╗   ██╗██╗
+    ██║  ██║██╔═══██╗██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██║
+    ███████║██║   ██║██║   ██║██████╔╝███████║ ╚████╔╝ ██║
+    ██╔══██║██║   ██║██║   ██║██╔══██╗██╔══██║  ╚██╔╝  ╚═╝
+    ██║  ██║╚██████╔╝╚██████╔╝██║  ██║██║  ██║   ██║   ██╗
+    ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝
+
+    EOS
+
     para <<-EOS
       Looks like your work here is done. Congratulations! Please push your branch
       up to the remote repository and open a Pull Request. Be sure to write the
