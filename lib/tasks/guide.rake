@@ -145,7 +145,9 @@ namespace :guide do
       para "Okay. #{human_name(current_exercise)} will not be scored."
     end
 
-    if completed = completed_exercises.map { |ex| human_name(ex) }
+    completed = completed_exercises.map { |ex| human_name(ex) }
+
+    if completed.present?
       puts "Finished exercises: #{completed.join(", ")}."
     else
       para "It looks like you haven't finished any of the exercises yet."
