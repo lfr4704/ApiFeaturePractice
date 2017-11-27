@@ -157,7 +157,9 @@ namespace :guide do
   task :next do
     if current = current_exercise
       Rake::Task["guide:#{current}:finish"].invoke
-      Rake::Task["guide:#{exercise_after(current)}:start"].invoke
+      if next_exercise = exercise_after(current)
+        Rake::Task["guide:#{next_exercise}:start"].invoke
+      end
     end
   end
 
