@@ -271,8 +271,8 @@ namespace :guide do
       para <<-EOS
         We've added some tests for you to exercise these features, updating the
         truck's last known location in `PATCH /trucks/1` and sending an optional
-        `near` parameter to the `GET /trucks/1` request to get the distance
-        back in the response.
+        `near` parameter to the `GET /trucks` request to get the distances of
+        all trucks back in the response.
 
         We'd like you to return the distance in miles, rounded to 2 decimal
         places. Keep in mind that some trucks won't have a last known location!
