@@ -23,13 +23,12 @@ task :check => ["guide:current", "db:test:prepare"] do
       sep
       para <<-EOS
         Looks like there's still at least one failing test. Once all tests are
-        passing, you can move on to the next exercise or mark this one complete.
+        passing, you can #{"move on to the next exercise or" if current_exercise != :exercise3}
+        mark this one complete.
       EOS
       exit response.exitstatus
     end
   end
-
-  sep
 end
 
 namespace :guide do
@@ -127,8 +126,6 @@ namespace :guide do
         branch to the remote repository yet? Once you've done that, all
         that remains is to open a Pull Request with your changes.
       EOS
-      sep
-      bye
     end
   end
 
@@ -349,6 +346,7 @@ namespace :guide do
         sh "git commit -a --allow-empty -m 'Marking Exercise 3 Complete'" do |ok, response|
           if ok
             finish(:exercise3)
+            Rake::Task["guide:thanks_and_goodbye"].invoke
           else
             para <<-EOS
               Something went wrong with that commit. Please commit your work
