@@ -24,7 +24,7 @@ end
 
 test "GET /api/trucks filtering by minimum rating includes trucks above the minimum" do
   truck = food_trucks(:pizza)
-  # TODO give pizza a 3-star rating
+  # TODO give the truck a 3-star rating
 
   get api_trucks_url, params: { min_rating: 3 }
   assert_includes response.map { |e| e[:id] }, truck.id
@@ -32,7 +32,7 @@ end
 
 test "GET /api/trucks filtering by minimum rating excludes trucks below the minimum" do
   truck = food_trucks(:pizza)
-  # TODO give pizza a 3-star rating
+  # TODO give the truck a 3-star rating
 
   get api_trucks_url, params: { min_rating: 4 }
   refute_includes response.map { |e| e[:id] }, truck.id
