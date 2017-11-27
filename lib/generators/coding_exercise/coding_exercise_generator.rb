@@ -23,8 +23,8 @@ class CodingExerciseGenerator < Rails::Generators::NamedBase
   def set_up_second_exercise
     puts "Setting up exercise 2!"
 
-    # add haversine gem
-    gem "haversine"
+    # add geocoder gem
+    gem "geocoder"
 
     # bundle
     Bundler.with_clean_env do
