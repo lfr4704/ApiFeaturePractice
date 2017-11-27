@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tags, only: [:show]
+  resources :tags, only: [:index, :show]
 
   root "trucks#index"
 end
