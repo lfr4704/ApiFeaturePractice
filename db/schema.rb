@@ -12,18 +12,18 @@
 
 ActiveRecord::Schema.define(version: 20171014135423) do
 
-  create_table "api_keys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "user_id", null: false
+  create_table "api_keys", force: :cascade do |t|
+    t.integer "user_id", null: false
     t.string "access_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_api_keys_on_user_id"
   end
 
-  create_table "food_trucks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "food_trucks", force: :cascade do |t|
     t.string "name", null: false
     t.string "website"
-    t.binary "description", limit: 16777215
+    t.text "description"
     t.integer "opens_at_hour", limit: 1
     t.integer "closes_at_hour", limit: 1
     t.boolean "open_sunday", default: false
@@ -37,15 +37,15 @@ ActiveRecord::Schema.define(version: 20171014135423) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "food_truck_id", null: false
+  create_table "tags", force: :cascade do |t|
+    t.integer "food_truck_id", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["food_truck_id"], name: "index_tags_on_food_truck_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string "login", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

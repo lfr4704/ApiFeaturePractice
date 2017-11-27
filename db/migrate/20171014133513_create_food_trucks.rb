@@ -3,7 +3,7 @@ class CreateFoodTrucks < ActiveRecord::Migration[5.1]
     create_table :food_trucks do |t|
       t.string :name, null: false
       t.string :website
-      t.mediumblob :description
+      t.text :description
       t.integer :opens_at_hour, limit: 1
       t.integer :closes_at_hour, limit: 1
 
