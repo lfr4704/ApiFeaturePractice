@@ -47,6 +47,13 @@ namespace :guide do
 
     EOS
 
+    current_branch = `git rev-parse --abbrev-ref HEAD`
+
+    if current_branch == "master"
+      branchname = "github-interview-#{Date.today.strftime("%Y%m%d")}"
+      sh "git checkout --track #{branchname}"
+    end
+
     para <<-EOS
       Today you'll be working on the REST API for a food truck tracking
       application called GitGrub. For each step, we'll provide a basic endpoint
@@ -97,9 +104,9 @@ namespace :guide do
     EOS
 
     para <<-EOS
-      Looks like your work here is done. Congratulations! Please push your branch
-      up to the remote repository and open a Pull Request. Be sure to write the
-      PR in the manner you'd write a PR as an engineer at GitHub.
+      It looks like your work here is done. Please push your branch up to the
+      remote repository and open a Pull Request. Be sure to write the PR in the
+      manner you'd write a PR as an engineer at GitHub.
 
       Thank you for your time. Have a nice day!
     EOS
