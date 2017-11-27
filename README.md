@@ -21,6 +21,10 @@ ruby -v
 gem install bundler
 ```
 
+The final prerequisite is [Yarn](https://yarnpkg.com/lang/en/docs/install/).
+There are a few ways to install it; choose the one that works best for your
+machine.
+
 ## Getting started
 
 Begin the first exercise with:
