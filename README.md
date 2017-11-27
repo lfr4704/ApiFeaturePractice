@@ -9,7 +9,8 @@ you move on to the next round.
 Get as far as you can, but don't panic if you don't finish all three exercises.
 It's better to complete one or two of them well than to rush through all three.
 In the end, you'll push your work up to a branch and open a pull request, which
-will be reviewed by GitHub engineers.
+will be reviewed by GitHub engineers. _Please reserve some time at the end to
+write up the pull request._
 
 ## Prerequisites
 
@@ -56,5 +57,5 @@ Mark all of your work as complete and stop the exercise with:
 bin/rake finish
 ```
 
-Finally, push your branch up to this repo and open a pull request.  Please
+Finally, push your branch up to this repo and open a pull request. Please
 write the pull request as you would in your normal course of work on a team.
