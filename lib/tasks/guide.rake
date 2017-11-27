@@ -48,7 +48,7 @@ namespace :guide do
 
     current_branch = `git rev-parse --abbrev-ref HEAD`
 
-    if current_branch == "master"
+    if current_branch.strip == "master"
       branchname = "github-interview-#{Date.today.strftime("%Y%m%d")}"
       sh "git checkout --track #{branchname}"
     end
