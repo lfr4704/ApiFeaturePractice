@@ -36,14 +36,14 @@ class Api::TrucksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "Decimals should be rounded to a single decimal place when multiple ratings exist" do
-    # TODO give the truck a 2.5-star rating
-    # Maybe 5,2,2,1?
+    # TODO give the truck a 3.3-star rating
+    # Maybe 5,3,2?
 
     truck = food_trucks(:pizza)
     get api_truck_url(truck)
 
     assert_response 200
-    assert_equal "2.5", response[:rating]
+    assert_equal "3.3", response[:rating]
   end
 
   # EXERCISE 2 - DO NOT DELETE THIS LINE
