@@ -9,6 +9,8 @@ class CodingExerciseGenerator < Rails::Generators::NamedBase
 
   def do_the_things
     case file_name
+    when "1", "first"
+      set_up_first_exercise
     when "2", "second"
       set_up_second_exercise
     when "3", "third"
@@ -19,6 +21,14 @@ class CodingExerciseGenerator < Rails::Generators::NamedBase
   end
 
   private
+
+  def set_up_first_exercise
+    puts "Setting up exercise 1!"
+
+    # copy tests over
+    template "exercise_1_trucks_controller_tests.rb", "test/controllers/api/trucks_controller_test.rb"
+    template "exercise_1_ratings_controller_tests.rb", "test/controllers/api/ratings_controller_test.rb"
+  end
 
   def set_up_second_exercise
     puts "Setting up exercise 2!"
