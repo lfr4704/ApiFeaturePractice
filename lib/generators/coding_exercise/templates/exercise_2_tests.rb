@@ -24,6 +24,7 @@ test "GET /api/trucks with `near` returns the distance in the response" do
 
   get api_trucks_url, params: { near: [90, 0] }
   assert_response 200
+  assert_predicate response.first[:distance], :present?
   assert response.first[:distance] > 0
 end
 
