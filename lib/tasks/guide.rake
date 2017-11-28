@@ -189,10 +189,12 @@ namespace :guide do
 
       puts <<-EOS
 
-  * A user can only rate each truck once
-  * Valid ratings are whole numbers from 1-5 (5 being highest)
+  * Approach your solution as you would if you were contributing to a
+    production application with external API consumers.
+  * A user can only rate each truck once.
+  * Valid ratings are whole numbers from 1-5 (5 being highest).
   * Ratings should be persisted in the database, but the storage model is
-    up to you
+    up to you.
       EOS
 
       para <<-EOS
@@ -211,7 +213,11 @@ namespace :guide do
       end
     end
 
-    task :start => [:set_pid, :instructions]
+    task :start => [:set_pid, :setup, :instructions]
+
+    task :setup do
+      sh "bin/rails g coding_exercise 1"
+    end
 
     task :finish => [:check] do
       if ENV["SKIP_COMMIT"] == "true"
