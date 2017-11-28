@@ -51,6 +51,7 @@ namespace :guide do
     if current_branch.strip == "master"
       branchname = "github-interview-#{Date.today.strftime("%Y%m%d")}"
       sh "git checkout -b #{branchname}"
+      sh "git push -u origin #{branchname}"
     end
 
     para <<-EOS
