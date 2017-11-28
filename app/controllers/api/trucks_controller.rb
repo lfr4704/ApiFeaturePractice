@@ -15,7 +15,7 @@ class Api::TrucksController < ApiController
     render json: @truck.to_h
   end
 
-  # PUT /api/trucks/1
+  # PATCH /api/trucks/1
   def update
     @truck = FoodTruck.find(params[:id])
     @truck.update(truck_attributes)
@@ -26,8 +26,10 @@ class Api::TrucksController < ApiController
   private
 
   def truck_attributes
-    params.
-      permit(:name, :website, :description, :opens_at_hour, :closes_at_hour).
-      permit(:open_sunday, :open_monday, :open_tuesday, :open_wednesday, :open_thursday, :open_friday, :open_saturday)
+    params.require(:truck).permit(
+      :name, :website, :description, :opens_at_hour, :closes_at_hour,
+      :open_sunday, :open_monday, :open_tuesday, :open_wednesday, :open_thursday,
+      :open_friday, :open_saturday
+    )
   end
 end
