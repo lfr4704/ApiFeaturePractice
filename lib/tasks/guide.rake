@@ -211,7 +211,11 @@ namespace :guide do
       end
     end
 
-    task :start => [:set_pid, :instructions]
+    task :start => [:set_pid, :setup, :instructions]
+
+    task :setup do
+      sh "bin/rails g coding_exercise 1"
+    end
 
     task :finish => [:check] do
       if ENV["SKIP_COMMIT"] == "true"
