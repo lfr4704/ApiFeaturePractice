@@ -189,10 +189,12 @@ namespace :guide do
 
       puts <<-EOS
 
-  * A user can only rate each truck once
-  * Valid ratings are whole numbers from 1-5 (5 being highest)
+  * Approach your solution as you would if you were contributing to a high-scale
+    production application with existing users.
+  * A user can only rate each truck once.
+  * Valid ratings are whole numbers from 1-5 (5 being highest).
   * Ratings should be persisted in the database, but the storage model is
-    up to you
+    up to you.
       EOS
 
       para <<-EOS
