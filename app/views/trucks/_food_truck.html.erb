@@ -1,4 +1,7 @@
-<div class="page-section pt-0">
+<div class="page-section
+  <% if food_truck_iteration.first? %>pt-0<% end %>
+  <% unless food_truck_iteration.last? %>border-bottom border-gray-light pb-3<% end %>
+  <% unless food_truck_iteration.first? %>pt-4<% end %>">
   <h4>
     <%= food_truck.name %>
     <%- if food_truck.tags.any? %>
