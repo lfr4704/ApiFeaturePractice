@@ -272,7 +272,7 @@ namespace :guide do
         We've added some tests for you to exercise these features, updating the
         truck's last known location in `PATCH /trucks/1` and sending an optional
         `near` parameter to the `GET /trucks` request to get the distances of
-        all trucks back in the response.
+        trucks within 50 miles back in the response.
 
         We'd like you to return the distance in miles, rounded to 2 decimal
         places. Keep in mind that some trucks won't have a last known location!
