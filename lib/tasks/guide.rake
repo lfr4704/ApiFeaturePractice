@@ -203,6 +203,9 @@ namespace :guide do
         return a truck's average rating, rounded to the nearest half (e.g. an
         average rating of 4.3 rounds to 4.5).
 
+        If it helps, you can copy these instructions into a file for easy
+        reference or keep this output open in a secondary terminal window.
+
         Hint: `rake test` will run the tests.
       EOS
     end

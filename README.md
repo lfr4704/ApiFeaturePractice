@@ -63,3 +63,18 @@ bin/rake finish
 
 Finally, push your branch up to this repo and open a pull request. Please
 write the pull request as you would in your normal course of work on a team.
+
+## What we're looking for
+
+We want you to submit a solution you're proud of and we want you to be
+successful so here are some of the things we're looking for in a solution:
+
+* Satisfy the requirements described in the exercise! :)
+* We're big fans of automated tests to help us build quality software, so
+  write tests for code and edge cases as you would if this was a production
+  application.
+* We like to see solutions that show familiarity with the language used,
+  demonstrating good object oriented (or functional) programming principles
+  without going overboard.
+* Tell us about your solution in your PR write-up. What trade-offs did you
+  make, if any?
