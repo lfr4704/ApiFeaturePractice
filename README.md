@@ -33,10 +33,6 @@ Begin the first exercise with:
 bin/rake start
 ```
 
-It may help you to copy the exercise instructions into a local file or keep
-them open in a secondary terminal window. Or, you can run `bin/rake help`
-any time to view the current exercise's instructions again!
-
 ### Other tasks to guide you along your way
 
 Check your progress at any time with:
