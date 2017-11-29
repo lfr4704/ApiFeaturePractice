@@ -221,14 +221,13 @@ namespace :guide do
     end
 
     task :finish => [:check] do
-      if ENV["SKIP_COMMIT"] == "true"
-        finish(:exercise1)
-      elsif ask("Ready to commit your work?")
+      finish(:exercise1)
+      return if ENV["SKIP_COMMIT"] == "true"
+
+      if ask("Ready to commit your work?")
         sh "git add ."
         sh "git commit -a --allow-empty -m 'Marking Exercise 1 Complete'" do |ok, response|
-          if ok
-            finish(:exercise1)
-          else
+          unless ok
             para <<-EOS
               Something went wrong with that commit. Please commit your work
               and try again.
@@ -290,14 +289,13 @@ namespace :guide do
     end
 
     task :finish => [:check] do
-      if ENV["SKIP_COMMIT"] == "true"
-        finish(:exercise2)
-      elsif ask("Ready to commit your work?")
+      finish(:exercise2)
+      return if ENV["SKIP_COMMIT"] == "true"
+
+      if ask("Ready to commit your work?")
         sh "git add ."
         sh "git commit -a --allow-empty -m 'Marking Exercise 2 Complete'" do |ok, response|
-          if ok
-            finish(:exercise2)
-          else
+          unless ok
             para <<-EOS
               Something went wrong with that commit. Please commit your work
               and try again.
@@ -347,14 +345,14 @@ namespace :guide do
     end
 
     task :finish => [:check] do
+      finish(:exercise3)
+
       if ENV["SKIP_COMMIT"] == "true"
-        finish(:exercise3)
         Rake::Task["guide:thanks_and_goodbye"].invoke
       elsif ask("Ready to commit your work?")
         sh "git add ."
         sh "git commit -a --allow-empty -m 'Marking Exercise 3 Complete'" do |ok, response|
           if ok
-            finish(:exercise3)
             Rake::Task["guide:thanks_and_goodbye"].invoke
           else
             para <<-EOS
