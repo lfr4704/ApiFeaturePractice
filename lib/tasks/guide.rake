@@ -277,8 +277,8 @@ namespace :guide do
       EOS
 
       para <<-EOS
-        NOTE: You shouldn't need to use Geocoder's geocoding functionality so for
-        the purposes of this exercise. It's fine to set the Geocoder gem's
+        NOTE: You shouldn't need to use Geocoder's geocoding functionality for
+        the purpose of this exercise, so it's fine to set the Geocoder gem's
         address_attr to nil in your model and skip geocoding altogether.
 
         We've added some tests for you to exercise these features, updating the
