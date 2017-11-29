@@ -19,6 +19,7 @@ Before you begin, ensure Ruby 2.4+ and Bundler are installed.
 ```
 ruby -v
 gem install bundler
+bundle install
 ```
 
 The final prerequisite is [Yarn](https://yarnpkg.com/lang/en/docs/install/).
