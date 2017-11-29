@@ -222,7 +222,7 @@ namespace :guide do
 
     task :finish => [:check] do
       finish(:exercise1)
-      return if ENV["SKIP_COMMIT"] == "true"
+      next if ENV["SKIP_COMMIT"] == "true"
 
       if ask("Ready to commit your work?")
         sh "git add ."
@@ -290,7 +290,7 @@ namespace :guide do
 
     task :finish => [:check] do
       finish(:exercise2)
-      return if ENV["SKIP_COMMIT"] == "true"
+      next if ENV["SKIP_COMMIT"] == "true"
 
       if ask("Ready to commit your work?")
         sh "git add ."
