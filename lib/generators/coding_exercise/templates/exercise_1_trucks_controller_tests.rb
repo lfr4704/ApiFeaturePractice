@@ -43,7 +43,7 @@ class Api::TrucksControllerTest < ActionDispatch::IntegrationTest
     get api_truck_url(truck)
 
     assert_response 200
-    assert_equal "3.5", response[:rating]
+    assert_equal 3.5, response[:rating]
   end
 
   # EXERCISE 2 - DO NOT DELETE THIS LINE
