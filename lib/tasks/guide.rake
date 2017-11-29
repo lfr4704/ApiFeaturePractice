@@ -277,6 +277,10 @@ namespace :guide do
       EOS
 
       para <<-EOS
+        NOTE: You shouldn't need to use Geocoder's geocoding functionality for
+        the purpose of this exercise, so it's fine to set the Geocoder gem's
+        address_attr to nil in your model and skip geocoding altogether.
+
         We've added some tests for you to exercise these features, updating the
         truck's last known location in `PATCH /trucks/1` and sending an optional
         `near` parameter to the `GET /trucks` request to get the distances of
