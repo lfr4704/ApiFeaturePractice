@@ -11,7 +11,7 @@ desc "Print the current exercise's instructions."
 task :help => ["guide:current", "guide:current_instructions", "guide:generic_help"]
 
 desc "Commit your work and move on to the next exercise."
-task :next => ["check", "guide:next"]
+task :next => ["check_simple", "guide:next"]
 
 desc "Mark your work on the entire coding exercise as complete. Everything but the push."
 task :finish => ["guide:current", "guide:finish_all", "guide:thanks_and_goodbye"]
@@ -19,14 +19,28 @@ task :finish => ["guide:current", "guide:finish_all", "guide:thanks_and_goodbye"
 desc "Checks the status of the exercise"
 task :check => ["guide:current", "db:test:prepare"] do
   sh "bin/rake test" do |ok, response|
-    unless ok || ENV["FORCE"] == "true"
+    if ok || ENV["FORCE"] == "true"
       sep
+      case current_exercise
+      when :exercise1, :exercise2
       para <<-EOS
-        Looks like there's still at least one failing test. Once all tests are
-        passing, you can #{"move on to the next exercise or" if current_exercise != :exercise3}
-        mark this one complete.
+        All tests pass! You can move on to the next exercise with `rake next`
+        or if you're tight on time, stop work and finalize your submission
+        with `rake finish`.
       EOS
-      exit response.exitstatus
+      when :exercise3
+        puts "All tests pass! You can finalize your submission with `rake finish`."
+      end
+    else
+      check_failed(status: response.exitstatus)
+    end
+  end
+end
+
+task :check_simple => ["db:test:prepare"] do
+  sh "bin/rake test" do |ok, response|
+    unless ok || ENV["FORCE"] == "true"
+      check_failed(status: response.exitstatus)
     end
   end
 end
@@ -223,7 +237,7 @@ namespace :guide do
       sh "bin/rails g coding_exercise 1"
     end
 
-    task :finish => [:check] do
+    task :finish => [:check_simple] do
       finish(:exercise1)
       next if ENV["SKIP_COMMIT"] == "true"
 
@@ -295,7 +309,7 @@ namespace :guide do
       sh "bin/rails g coding_exercise 2"
     end
 
-    task :finish => [:check] do
+    task :finish => [:check_simple] do
       finish(:exercise2)
       next if ENV["SKIP_COMMIT"] == "true"
 
@@ -351,7 +365,7 @@ namespace :guide do
       EOS
     end
 
-    task :finish => [:check] do
+    task :finish => [:check_simple] do
       finish(:exercise3)
 
       if ENV["SKIP_COMMIT"] == "true"
@@ -407,6 +421,16 @@ end
 def sep
   puts ""
   puts "/" * ideal_width
+end
+
+def check_failed(status: 1)
+  sep
+  para <<-EOS
+    Looks like there's still at least one failing test. Once all tests are
+    passing, you can #{"move on to the next exercise or" if current_exercise != :exercise3}
+    mark this one complete.
+  EOS
+  exit status
 end
 
 def bye(message = nil)
