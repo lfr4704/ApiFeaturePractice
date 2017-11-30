@@ -220,7 +220,7 @@ namespace :guide do
         If it helps, you can copy these instructions into a file for easy
         reference or keep this output open in a secondary terminal window.
 
-        Hint: `rake test` will run the tests.
+        Hint: `rake check` will check your work.
       EOS
     end
 
