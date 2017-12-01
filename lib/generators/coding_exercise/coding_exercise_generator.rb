@@ -26,8 +26,12 @@ class CodingExerciseGenerator < Rails::Generators::NamedBase
     puts "Setting up exercise 1!"
 
     # copy tests over
-    template "exercise_1_trucks_controller_tests.rb", "test/controllers/api/trucks_controller_test.rb"
-    template "exercise_1_ratings_controller_tests.rb", "test/controllers/api/ratings_controller_test.rb"
+    inject_into_file "test/controllers/api/ratings_controller_test.rb", after: "class Api::RatingsControllerTest < ActionDispatch::IntegrationTest" do
+      "\n\n" + load_tests(:exercise_1_ratings_controller).indent(2)
+    end
+    inject_into_file "test/controllers/api/trucks_controller_test.rb", after: "class Api::TrucksControllerTest < ActionDispatch::IntegrationTest" do
+      "\n\n" + load_tests(:exercise_1_trucks_controller).indent(2)
+    end
   end
 
   def set_up_second_exercise
