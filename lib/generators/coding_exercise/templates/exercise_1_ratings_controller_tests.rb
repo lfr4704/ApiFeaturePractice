@@ -1,42 +1,36 @@
-require "test_helper"
+test "Rating a truck with 0 ratings sets a rating" do
+  user = users(:harry)
+  truck = food_trucks(:pizza)
+  assert_nil truck.rating
 
-class Api::RatingsControllerTest < ActionDispatch::IntegrationTest
+  post api_truck_ratings_url(truck),
+    params: { rating: 4 },
+    headers: authorization_params(user)
 
-  test "Rating a truck with 0 ratings sets a rating" do
-    user = users(:harry)
-    truck = food_trucks(:pizza)
-    assert_nil truck.rating
+  assert_equal 4, truck.rating
+end
 
-    post api_truck_ratings_url(truck),
-      params: { rating: 4 },
-      headers: authorization_params(user)
+test "Rating a truck with a rating changes the rating" do
+  truck = food_trucks(:pizza)
 
-    assert_equal 4, truck.rating
-  end
+  rachel = users(:rachel)
+  post api_truck_ratings_url(truck),
+    params: { rating: 2 },
+    headers: authorization_params(rachel)
 
-  test "Rating a truck with a rating changes the rating" do
-    truck = food_trucks(:pizza)
+  harry = users(:harry)
+  post api_truck_ratings_url(truck),
+    params: { rating: 4 },
+    headers: authorization_params(harry)
 
-    rachel = users(:rachel)
-    post api_truck_ratings_url(truck),
-      params: { rating: 2 },
-      headers: authorization_params(rachel)
+  assert_equal 3, truck.rating
+end
 
-    harry = users(:harry)
-    post api_truck_ratings_url(truck),
-      params: { rating: 4 },
-      headers: authorization_params(harry)
+test "Can't rate if unauthenticated" do
+  truck = food_trucks(:pizza)
 
-    assert_equal 3, truck.rating
-  end
+  post api_truck_ratings_url(truck),
+    params: { rating: 2 }
 
-  test "Can't rate if unauthenticated" do
-    truck = food_trucks(:pizza)
-
-    post api_truck_ratings_url(truck),
-      params: { rating: 2 }
-
-    assert_equal 401, response.status
-  end
-
+  assert_equal 401, response.status
 end
