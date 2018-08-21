@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'ratings/show'
 
   get 'ratings/new'
+  post 'ratings/new'
 
   get 'ratings/edit'
 
@@ -17,5 +18,6 @@ Rails.application.routes.draw do
 
   resources :tags, only: [:index, :show]
 
-  root "trucks#index"
+  root "trucks#index" # tells rails to map request to the root fo the application to the controller's (trucks) index action and get 'trucks/index'
+
 end

@@ -4,10 +4,13 @@ class RatingsController < ApplicationController
   end
 
   def show
+
     @rating = Rating.find(params[:id])
   end
   #GET /ratings/new
   def new
+    require 'pry'
+    binding.pry
     @rating = Rating.new
   end
 
@@ -16,6 +19,7 @@ class RatingsController < ApplicationController
   end
 
   def create
+
     @rating = Rating.new(rating_params)
 
     @rating.save

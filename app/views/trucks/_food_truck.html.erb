@@ -3,6 +3,7 @@
   <% unless food_truck_iteration.last? %>border-bottom border-gray-light pb-3<% end %>
   <% unless food_truck_iteration.first? %>pt-4<% end %>">
   <h4>
+    <%= link_to "Write a Review", "/ratings/new", match: "ratings", class: "btn btn-primary" %><br />
     <%= food_truck.name %>
     <%- if food_truck.tags.any? %>
       <span class="labels">
@@ -17,7 +18,7 @@
     <p class="text-small">
       <strong>Website:</strong>
       <%= link_to food_truck.website %><br />
-      <%= link_to "Ratings" %>
+
     </p>
   <%- end %>
 </div>
