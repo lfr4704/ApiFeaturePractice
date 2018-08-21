@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  get 'ratings/index'
+
+  get 'ratings/show'
+
+  get 'ratings/new'
+  post 'ratings/new'
+
+  get 'ratings/edit'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   namespace :api do
@@ -9,5 +18,6 @@ Rails.application.routes.draw do
 
   resources :tags, only: [:index, :show]
 
-  root "trucks#index"
+  root "trucks#index" # tells rails to map request to the root fo the application to the controller's (trucks) index action and get 'trucks/index'
+
 end
